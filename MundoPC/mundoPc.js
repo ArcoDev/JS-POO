@@ -65,9 +65,44 @@ class Monitor {
         return this._idMonitor;
     }
     toString() {
-        return `Monotor: [idMonitor: ${this._idMonitor}, Marca: ${this._marca}, Tamaño: ${this._tamaño}"]`;
+        return `Monitor: [idMonitor: ${this._idMonitor}, Marca: ${this._marca}, Tamaño: ${this._tamaño}"]`;
     }
 }
+class Computadora {
+    static contadorComputadoras = 0;
+    constructor(nombre, monitor, raton, teclado) {
+        this._idComputadora = ++Computadora.contadorComputadoras;
+        this._nombre = nombre;
+        this._monitor = monitor;
+        this._raton = raton;
+        this._teclado = teclado;
+    }
+    toString() {
+        return `Computadora ${this._idComputadora}: ${this._nombre} \n ${this._monitor} \n ${this._raton} \n ${this._teclado}`;
+    }
+}
+
+class Orden {
+    static contadorOrdenes = 0;
+    constructor() {
+        this._idOrden = ++Orden.contadorOrdenes;
+        this._computadoras = [];
+    }
+    get idOrden() {
+        return this.idOrden;
+    }
+    agregarComputadora(computadora) {
+        this._computadoras.push(computadora);
+    }
+    mostrarOrden() {
+        let computadorasOrden = '';
+        for(let computadora of this._computadoras) {
+            computadorasOrden += `\n${computadora}`;
+        }
+        console.log(`Orden: ${this._idOrden}, Computadoras: ${computadorasOrden}`);
+    }
+}
+
 //Mostrar en consola el objeto creado
 let raton1 = new Raton('USB', 'HP');
 let raton2 = new Raton('Bluetooh', 'Dell');
@@ -84,4 +119,19 @@ let monitor1 = new Monitor('HP',  15);
 let monitor2 = new Monitor('DELL', 24);
 console.log(monitor1.toString());
 console.log(monitor2.toString());
+
+//Obejto computadora
+let computadora1 = new Computadora('HP', monitor1, raton1, teclado1);
+let computadora2 = new Computadora('HP', monitor2, raton2, teclado2);
+console.log(computadora1.toString());
+
+//Objeto orden
+let orden1 = new Orden();
+let orden2 = new Orden();
+orden1.agregarComputadora(computadora1);
+orden2.agregarComputadora(computadora2);
+orden1.agregarComputadora(computadora2);
+orden1.mostrarOrden();
+orden2.mostrarOrden();
+
 
